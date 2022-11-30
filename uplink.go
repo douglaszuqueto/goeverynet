@@ -1,0 +1,33 @@
+package goeverynet
+
+type UplinkFrame struct {
+	Type   string       `json:"type"`
+	Params UplinkParams `json:"params"`
+	Meta   Meta         `json:"meta"`
+}
+
+type UplinkParams struct {
+	RxTime           float64    `json:"rx_time"`
+	Port             int        `json:"port"`
+	Duplicate        bool       `json:"duplicate"`
+	Radio            Radio      `json:"radio"`
+	CounterUp        int        `json:"counter_up"`
+	Lora             UplinkLora `json:"lora"`
+	Payload          string     `json:"payload"`
+	EncryptedPayload string     `json:"encrypted_payload"`
+}
+
+type UplinkHeader struct {
+	ClassB    bool `json:"class_b"`
+	Confirmed bool `json:"confirmed"`
+	Adr       bool `json:"adr"`
+	Ack       bool `json:"ack"`
+	AdrAckReq bool `json:"adr_ack_req"`
+	Version   int  `json:"version"`
+	Type      int  `json:"type"`
+}
+
+type UplinkLora struct {
+	Header      UplinkHeader  `json:"header"`
+	MacCommands []interface{} `json:"mac_commands"`
+}
