@@ -1,7 +1,6 @@
 package goeverynet_test
 
 import (
-	"encoding/json"
 	"testing"
 
 	"github.com/douglaszuqueto/goeverynet"
@@ -33,10 +32,12 @@ func TestLocation(t *testing.T) {
 	  }	  
 	`
 
-	var payload goeverynet.LocationFrame
-
-	err := json.Unmarshal([]byte(packet), &payload)
+	frame, err := goeverynet.NewLocationFrame([]byte(packet))
 	if err != nil {
-		t.Error(err)
+		t.Fatal(err)
+	}
+
+	if frame.Type != "location" {
+		t.Errorf("frame type is not location")
 	}
 }

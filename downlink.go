@@ -1,5 +1,7 @@
 package goeverynet
 
+import "encoding/json"
+
 type DownlinkFrame struct {
 	Type   string         `json:"type"`
 	Params DownlinkParams `json:"params"`
@@ -27,4 +29,31 @@ type DownlinkParams struct {
 	Lora             DownlinkLora `json:"lora"`
 	Port             int          `json:"port"`
 	EncryptedPayload string       `json:"encrypted_payload"`
+}
+
+// NewDownlinkFrame creates a new DownlinkFrame from a byte array
+func NewDownlinkFrame(data []byte) (*DownlinkFrame, error) {
+	var frame DownlinkFrame
+
+	err := json.Unmarshal(data, &frame)
+	if err != nil {
+		return nil, err
+	}
+
+	err = frame.Validate()
+	if err != nil {
+		return nil, err
+	}
+
+	return &frame, nil
+}
+
+// MarshalJSON returns the JSON encoding of a DownlinkFrame
+func (frame *DownlinkFrame) MarshalJSON() ([]byte, error) {
+	return json.Marshal(frame)
+}
+
+// Validate validates a DownlinkFrame
+func (frame *DownlinkFrame) Validate() error {
+	return nil
 }

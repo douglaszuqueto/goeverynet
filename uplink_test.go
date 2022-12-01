@@ -1,7 +1,6 @@
 package goeverynet_test
 
 import (
-	"encoding/json"
 	"testing"
 
 	"github.com/douglaszuqueto/goeverynet"
@@ -72,12 +71,12 @@ func TestUplink(t *testing.T) {
 	  }	  
 	`
 
-	var payload goeverynet.UplinkFrame
-
-	err := json.Unmarshal([]byte(packet), &payload)
+	frame, err := goeverynet.NewUplinkFrame([]byte(packet))
 	if err != nil {
-		t.Error(err)
+		t.Fatal(err)
 	}
 
-	t.Log(payload.Type)
+	if frame.Type != "uplink" {
+		t.Errorf("frame type is not uplink")
+	}
 }

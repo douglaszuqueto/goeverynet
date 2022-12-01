@@ -1,5 +1,7 @@
 package goeverynet
 
+import "encoding/json"
+
 type UplinkFrame struct {
 	Type   string       `json:"type"`
 	Params UplinkParams `json:"params"`
@@ -30,4 +32,31 @@ type UplinkHeader struct {
 type UplinkLora struct {
 	Header      UplinkHeader  `json:"header"`
 	MacCommands []interface{} `json:"mac_commands"`
+}
+
+// NewUplinkFrame creates a new UplinkFrame
+func NewUplinkFrame(payload []byte) (*UplinkFrame, error) {
+	frame := &UplinkFrame{}
+
+	err := json.Unmarshal(payload, frame)
+	if err != nil {
+		return nil, err
+	}
+
+	err = frame.Validate()
+	if err != nil {
+		return nil, err
+	}
+
+	return frame, nil
+}
+
+// MarshalJSON returns the JSON encoding of a UplinkFrame
+func (frame *UplinkFrame) MarshalJSON() ([]byte, error) {
+	return json.Marshal(frame)
+}
+
+// Validate validates a UplinkFrame
+func (frame *UplinkFrame) Validate() error {
+	return nil
 }

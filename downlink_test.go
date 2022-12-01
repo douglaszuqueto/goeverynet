@@ -1,7 +1,6 @@
 package goeverynet_test
 
 import (
-	"encoding/json"
 	"testing"
 
 	"github.com/douglaszuqueto/goeverynet"
@@ -126,10 +125,12 @@ func TestDownlink(t *testing.T) {
 	  }
 	`
 
-	var event goeverynet.DownlinkFrame
-
-	err := json.Unmarshal([]byte(packet), &event)
+	frame, err := goeverynet.NewDownlinkFrame([]byte(packet))
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
+	}
+
+	if frame.Type != "downlink" {
+		t.Errorf("frame type is not downlink")
 	}
 }
