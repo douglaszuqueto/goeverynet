@@ -133,4 +133,9 @@ func TestDownlink(t *testing.T) {
 	if frame.Type != "downlink" {
 		t.Errorf("frame type is not downlink")
 	}
+
+	_, err = frame.MarshalJSON()
+	if err != nil {
+		t.Fatal(err)
+	}
 }

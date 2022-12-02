@@ -79,4 +79,9 @@ func TestUplink(t *testing.T) {
 	if frame.Type != "uplink" {
 		t.Errorf("frame type is not uplink")
 	}
+
+	_, err = frame.MarshalJSON()
+	if err != nil {
+		t.Fatal(err)
+	}
 }

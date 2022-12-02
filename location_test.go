@@ -40,4 +40,9 @@ func TestLocation(t *testing.T) {
 	if frame.Type != "location" {
 		t.Errorf("frame type is not location")
 	}
+
+	_, err = frame.MarshalJSON()
+	if err != nil {
+		t.Fatal(err)
+	}
 }

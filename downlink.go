@@ -50,7 +50,7 @@ func NewDownlinkFrame(data []byte) (*DownlinkFrame, error) {
 
 // MarshalJSON returns the JSON encoding of a DownlinkFrame
 func (frame *DownlinkFrame) MarshalJSON() ([]byte, error) {
-	return json.Marshal(frame)
+	return json.Marshal(*frame)
 }
 
 // Validate validates a DownlinkFrame

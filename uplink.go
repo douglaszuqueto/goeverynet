@@ -53,7 +53,7 @@ func NewUplinkFrame(payload []byte) (*UplinkFrame, error) {
 
 // MarshalJSON returns the JSON encoding of a UplinkFrame
 func (frame *UplinkFrame) MarshalJSON() ([]byte, error) {
-	return json.Marshal(frame)
+	return json.Marshal(*frame)
 }
 
 // Validate validates a UplinkFrame

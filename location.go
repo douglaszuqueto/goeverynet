@@ -39,7 +39,7 @@ func NewLocationFrame(payload []byte) (*LocationFrame, error) {
 
 // MarhsalJSON returns the JSON encoding of a LocationFrame
 func (frame *LocationFrame) MarshalJSON() ([]byte, error) {
-	return json.Marshal(frame)
+	return json.Marshal(*frame)
 }
 
 // Validate validates a LocationFrame
